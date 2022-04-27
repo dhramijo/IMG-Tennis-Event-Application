@@ -15,7 +15,7 @@ An array of matches a customer has purchased. Each element should contain:
       - "player A vs player B, starts in x minutes". when start time is in the future.
       - "player A vs player B, started x minutes ago" when start time is in the past.
 
-## Tech Stack and ER Diagram
+## Tech Stack
 
 For this project I have used:
 
