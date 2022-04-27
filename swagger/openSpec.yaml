@@ -1,0 +1,87 @@
+swagger: '2.0'
+info:
+  title: IMG Arena Tennis Event
+  description: Swagger for IMG Arena Tennis Matches API Specification
+  termsOfService: 'https://www.example.com/terms'
+  contact:
+    name: Service Desk
+    email: ServiceDesk@imgarena.com
+  license:
+    name: open-licence
+    url: 'https://www.example.com/open-licence'
+  version: v1
+basePath: /api/v1
+schemes:
+  - https
+  - http
+produces:
+  - application/json; charset=utf-8
+paths:
+  /customer/{customerId}/matches:
+    get:
+      tags:
+        - List Of Matches
+      summary: List of matches a customer has purchased
+      operationId: matchId
+      parameters:
+        - name: "customerId"
+          in: "path"
+          description: "ID of customer to return"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "summaryType"
+          in: "query"
+          description: "ID of customer to return"
+          required: false
+          type: string
+          enum: [AVB, AVB_TIME]
+      responses:
+        '200':
+          $ref: '#/responses/200MatchListRetrievedSuccessfully'
+        '400':
+          $ref: '#/responses/400Error'
+        '500':
+          $ref: '#/responses/500Error'
+definitions:
+  MatchList:
+    type: "array"
+    items:
+      $ref: "#/definitions/Match"
+  Match:
+    type: object
+    properties:
+      matchId:
+        type: integer
+      startDate:
+        type: string
+      playerA:
+        type: string
+      playerB:
+        type: string
+      summary:
+        type: string
+  ErrorResponse:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+      timestamp:
+        type: string
+      message:
+        type: string
+      description:
+        type: string
+responses:
+  200MatchListRetrievedSuccessfully:
+    description: Match list a customer has purchased
+    schema:
+      $ref: '#/definitions/MatchList'
+  400Error:
+    description: Bad request
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  500Error:
+    description: Internal Server Error
+    schema:
+      $ref: '#/definitions/ErrorResponse'
